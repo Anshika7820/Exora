@@ -47,11 +47,15 @@
                             
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                                 @foreach($images as $img)
-                                    <div class="relative group rounded-xl overflow-hidden border border-gray-800 hover:border-cyan-400 transition-all cursor-pointer" onclick="openModal('{{ $img['urls']['regular'] ?? $img['urls']['small'] }}')">
-                                        <img src="{{ $img['urls']['small'] }}" class="w-full h-64 object-cover transform group-hover:scale-110 transition-transform duration-500" alt="Exhibition">
-                                        <div class="absolute inset-0 bg-gradient-to-t from-black/90 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
-                                            <h4 class="text-white font-black text-lg">Section Detail</h4>
-                                            <p class="text-gray-300 text-sm">Click to expand overview</p>
+                                    <div class="relative group rounded-xl overflow-hidden border border-gray-800 hover:border-cyan-400/50 hover:shadow-[0_0_30px_rgba(34,211,238,0.15)] transition-all duration-500 cursor-pointer" onclick="openModal('{{ $img['full'] }}')">
+                                        <div class="aspect-video bg-gray-800 overflow-hidden">
+                                            <img src="{{ $img['thumb'] }}" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out" alt="Exhibition">
+                                        </div>
+                                        <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-end p-6">
+                                            <div class="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                                                <h4 class="text-white font-black text-lg">Section Detail</h4>
+                                                <p class="text-cyan-400 font-bold text-[10px] tracking-widest uppercase">Click to expand overview</p>
+                                            </div>
                                         </div>
                                     </div>
                                 @endforeach

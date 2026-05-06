@@ -28,19 +28,21 @@
                         <div class="p-6 text-gray-100">
                             <h3 class="text-3xl font-black text-white tracking-tighter uppercase mb-6">Auditorium Sessions</h3>
                             
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
                                 @forelse($sessions as $session)
-                                    <div class="bg-gray-800 rounded-lg overflow-hidden border border-gray-700 hover:border-purple-400 transition-all">
-                                        <div class="relative h-40 bg-gray-900 flex items-center justify-center">
-                                            <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover opacity-50" alt="Session">
+                                    <div class="group bg-black/50 rounded-2xl overflow-hidden border border-white/5 hover:border-purple-500/50 hover:shadow-[0_0_30px_rgba(168,85,247,0.15)] transition-all duration-500">
+                                        <div class="relative h-44 overflow-hidden bg-gray-900 flex items-center justify-center">
+                                            <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=500&q=80" class="w-full h-full object-cover opacity-40 group-hover:opacity-60 group-hover:scale-105 transition-all duration-700 ease-out" alt="Session">
                                             <div class="absolute inset-0 flex items-center justify-center">
-                                                <div class="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center text-white shadow-lg">▶️</div>
+                                                <div class="w-14 h-14 bg-purple-600/20 backdrop-blur-md rounded-full border border-purple-500/50 flex items-center justify-center text-white shadow-lg transform group-hover:scale-110 transition-transform duration-500">
+                                                    <span class="text-2xl ml-1">▶️</span>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="p-4">
-                                            <h4 class="text-white font-bold">{{ $session->title }}</h4>
-                                            <p class="text-gray-400 text-sm mb-4">{{ $session->time }}</p>
-                                            <button onclick="openSession('{{ $session->title }}', '{{ $session->video_url }}')" class="w-full bg-purple-600 hover:bg-purple-700 text-white py-2 rounded transition">Join Session</button>
+                                        <div class="p-6">
+                                            <h4 class="text-white font-black text-lg mb-1 group-hover:text-purple-400 transition-colors">{{ $session->title }}</h4>
+                                            <p class="text-[10px] text-gray-500 font-black uppercase tracking-widest mb-6">{{ $session->time }}</p>
+                                            <button onclick="openSession('{{ $session->title }}', '{{ $session->video_url }}')" class="w-full bg-purple-600 hover:bg-purple-500 text-white font-black py-4 rounded-xl text-[10px] uppercase tracking-[0.2em] transition-all shadow-[0_0_15px_rgba(168,85,247,0.2)]">Join Session</button>
                                         </div>
                                     </div>
                                 @empty

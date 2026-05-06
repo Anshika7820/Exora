@@ -56,7 +56,14 @@ class ExhibitionController extends Controller
 
     private function fetchImages($query, $view) {
         $images = $this->fetchImagesOnly($query);
-        return view($view, compact('images'));
+        // Transform images to favor small thumbnails for speed
+        $optimizedImages = array_map(function($img) {
+            return [
+                'thumb' => $img['urls']['small'] ?? $img['urls']['regular'],
+                'full' => $img['urls']['regular']
+            ];
+        }, $images);
+        return view($view, ['images' => $optimizedImages]);
     }
 
     public function create() {

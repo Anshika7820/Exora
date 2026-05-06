@@ -17,14 +17,24 @@
                         @endif
                     </div>
                     
-                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
                         @forelse($dbBooths as $index => $booth)
-                            @php $imgUrl = $booth->image_url ?: $images[array_rand($images)]['urls']['small'] @endphp
-                            <div class="bg-gray-800 rounded-lg overflow-hidden border border-gray-700 hover:border-pink-400 hover:shadow-[0_0_15px_rgba(244,114,182,0.3)] transition-all cursor-pointer" onclick="openBoothModal('{{ addslashes($booth->title) }}', '{{ addslashes($booth->description) }}', '{{ $imgUrl }}')">
-                                <img src="{{ $imgUrl }}" class="w-full h-48 object-cover" alt="Booth">
-                                <div class="p-4">
-                                    <h4 class="text-white font-bold text-lg mb-2">{{ $booth->title }}</h4>
-                                    <p class="text-gray-400 text-sm line-clamp-2">{{ $booth->description }}</p>
+                            @php 
+                                $imgData = $images[array_rand($images)];
+                                $imgThumb = $booth->image_url ?: $imgData['thumb'];
+                                $imgFull = $booth->image_url ?: $imgData['full'];
+                            @endphp
+                            <div class="group bg-black/50 rounded-2xl overflow-hidden border border-white/5 hover:border-pink-500/50 hover:shadow-[0_0_30px_rgba(236,72,153,0.15)] transition-all duration-500 cursor-pointer" onclick="openBoothModal('{{ addslashes($booth->title) }}', '{{ addslashes($booth->description) }}', '{{ $imgFull }}')">
+                                <div class="aspect-[4/3] overflow-hidden bg-gray-800">
+                                    <img src="{{ $imgThumb }}" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out" alt="Booth">
+                                </div>
+                                <div class="p-6">
+                                    <h4 class="text-white font-black text-xl mb-2 group-hover:text-pink-400 transition-colors">{{ $booth->title }}</h4>
+                                    <p class="text-gray-500 text-xs line-clamp-2 leading-relaxed font-bold">{{ $booth->description }}</p>
+                                    <div class="mt-4 flex items-center text-[10px] font-black text-pink-500 uppercase tracking-widest">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-pink-500 mr-2"></span>
+                                        Available Now
+                                    </div>
                                 </div>
                             </div>
                         @empty

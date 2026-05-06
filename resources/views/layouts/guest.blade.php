@@ -26,7 +26,7 @@
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0">
             <div class="mb-8">
                 <a href="/" class="text-3xl font-black tracking-tighter gradient-text">
-                    VirtualExpo
+                    Exora
                 </a>
             </div>
 

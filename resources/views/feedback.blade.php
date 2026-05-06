@@ -42,5 +42,5 @@
             </div>
         </div>
     </div>
-    <x-chat-bot />
+    <x-chatbot />
 </x-app-layout>

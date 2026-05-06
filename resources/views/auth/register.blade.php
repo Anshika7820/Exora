@@ -54,9 +54,28 @@
                 {{ __('Already registered?') }}
             </a>
 
-            <x-primary-button class="ms-4">
+            <x-primary-button class="ms-4" id="reg-btn">
                 {{ __('Register') }}
             </x-primary-button>
         </div>
     </form>
+
+    <script>
+        const password = document.getElementById('password');
+        const confirm = document.getElementById('password_confirmation');
+        const btn = document.getElementById('reg-btn');
+        
+        function validate() {
+            if (confirm.value && password.value !== confirm.value) {
+                confirm.style.borderColor = '#ef4444';
+                confirm.style.boxShadow = '0 0 10px rgba(239, 68, 68, 0.2)';
+            } else if (confirm.value) {
+                confirm.style.borderColor = '#22d3ee';
+                confirm.style.boxShadow = '0 0 10px rgba(34, 211, 238, 0.2)';
+            }
+        }
+
+        password.addEventListener('input', validate);
+        confirm.addEventListener('input', validate);
+    </script>
 </x-guest-layout>

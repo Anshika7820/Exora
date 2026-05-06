@@ -6,6 +6,6 @@ use MongoDB\Laravel\Eloquent\Model;
 
 class Feedback extends Model
 {
-    protected $fillable = ['name', 'message', 'user_id'];
+    protected $fillable = ['name', 'email', 'rating', 'message', 'user_id'];
     //
 }

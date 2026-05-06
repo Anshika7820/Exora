@@ -103,17 +103,64 @@
                 </div>
                 <button onclick="closeGalleryModal()" class="text-gray-400 hover:text-white text-2xl font-bold">&times;</button>
             </div>
-            <div class="p-6">
-                <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                    <div class="aspect-square bg-gray-800 rounded-xl overflow-hidden"><img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&q=80" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" alt="Gallery"></div>
-                    <div class="aspect-square bg-gray-800 rounded-xl overflow-hidden"><img src="https://images.unsplash.com/photo-1547826039-bfc35e0f1ea8?w=400&q=80" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" alt="Gallery"></div>
-                    <div class="aspect-square bg-gray-800 rounded-xl overflow-hidden"><img src="https://images.unsplash.com/photo-1563089145-599997674d42?w=400&q=80" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" alt="Gallery"></div>
-                    <div class="aspect-square bg-gray-800 rounded-xl overflow-hidden"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" alt="Gallery"></div>
-                    <div class="aspect-square bg-gray-800 rounded-xl overflow-hidden"><img src="https://images.unsplash.com/photo-1483982258113-b72862e6cff6?w=400&q=80" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" alt="Gallery"></div>
-                    <div class="aspect-square bg-gray-800 rounded-xl overflow-hidden"><img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=400&q=80" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" alt="Gallery"></div>
+
+            <!-- Toolbar: Add Image + Counter -->
+            <div class="px-6 pt-5 flex items-center justify-between gap-3">
+                <div class="flex items-center gap-3 flex-1">
+                    <input type="url" id="gallery-img-url" placeholder="Paste an image URL to add it..." class="flex-1 bg-black/50 border border-white/10 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-cyan-500 transition">
+                    <button onclick="addGalleryImage()" class="bg-cyan-600 hover:bg-cyan-500 text-white font-black px-5 py-2.5 rounded-xl text-xs uppercase tracking-widest transition whitespace-nowrap">+ Add</button>
                 </div>
-                <p class="text-center text-gray-500 text-xs font-bold mt-4 uppercase tracking-widest">Swipe to explore all exhibits</p>
+                <span id="gallery-counter" class="text-xs font-black text-gray-500 uppercase tracking-widest whitespace-nowrap">6 Exhibits</span>
             </div>
+
+            <!-- Gallery Grid -->
+            <div class="p-6">
+                <div id="gallery-grid" class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    @foreach([
+                        ['https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600&q=80', 'Design Studio'],
+                        ['https://images.unsplash.com/photo-1547826039-bfc35e0f1ea8?w=600&q=80', 'Conference Hall'],
+                        ['https://images.unsplash.com/photo-1563089145-599997674d42?w=600&q=80', 'Tech Exhibit'],
+                        ['https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80', 'Innovation Lab'],
+                        ['https://images.unsplash.com/photo-1483982258113-b72862e6cff6?w=600&q=80', 'Night Event'],
+                        ['https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=600&q=80', 'Live Stage'],
+                    ] as $gi => [$gsrc, $gcap])
+                    <div class="gallery-item group relative aspect-square bg-gray-900 rounded-xl overflow-hidden cursor-pointer border border-white/5 hover:border-cyan-500/40 hover:shadow-[0_0_20px_rgba(34,211,238,0.1)] transition-all duration-300"
+                        onclick="openLightbox({{ $gi }})" data-src="{{ $gsrc }}" data-caption="{{ $gcap }}">
+                        <img src="{{ $gsrc }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" alt="{{ $gcap }}">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                            <div>
+                                <p class="text-white font-black text-sm">{{ $gcap }}</p>
+                                <p class="text-cyan-400 text-[10px] font-bold uppercase tracking-widest mt-1">🔍 Click to expand</p>
+                            </div>
+                        </div>
+                        <div class="absolute top-3 right-3 bg-black/60 backdrop-blur-sm rounded-full px-2 py-1 text-[9px] font-black text-white/60 uppercase tracking-widest">#{{ $gi + 1 }}</div>
+                    </div>
+                    @endforeach
+                </div>
+                <p class="text-center text-gray-600 text-[10px] font-black mt-5 uppercase tracking-[0.3em]">← Swipe or click to explore · Add images via URL above →</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lightbox Viewer -->
+    <div id="lightbox" class="fixed inset-0 z-[300] hidden bg-black/98 flex items-center justify-center" onclick="closeLightboxOnBg(event)">
+        <button onclick="prevLightbox()" class="absolute left-4 md:left-8 text-white/50 hover:text-white text-5xl font-thin transition z-10 select-none">&#8249;</button>
+        <button onclick="nextLightbox()" class="absolute right-4 md:right-8 text-white/50 hover:text-white text-5xl font-thin transition z-10 select-none">&#8250;</button>
+        <button onclick="closeLightbox()" class="absolute top-5 right-6 text-white/50 hover:text-white text-3xl font-bold transition z-10">&times;</button>
+
+        <div class="relative max-w-5xl w-full mx-8 md:mx-20 text-center">
+            <div class="relative">
+                <img id="lightbox-img" src="" class="max-h-[75vh] max-w-full mx-auto rounded-2xl shadow-2xl object-contain transition-opacity duration-300" alt="">
+                <div id="lightbox-loader" class="absolute inset-0 flex items-center justify-center">
+                    <div class="w-8 h-8 border-2 border-cyan-500 border-t-transparent rounded-full animate-spin"></div>
+                </div>
+            </div>
+            <div class="mt-6 flex items-center justify-center gap-6">
+                <p id="lightbox-caption" class="text-white font-black text-xl"></p>
+                <span id="lightbox-count" class="text-gray-500 text-sm font-bold"></span>
+            </div>
+            <!-- Dot indicators -->
+            <div id="lightbox-dots" class="flex justify-center gap-2 mt-4"></div>
         </div>
     </div>
 
@@ -155,10 +202,124 @@
         function openGalleryModal() {
             document.getElementById('boothModal').classList.add('hidden');
             document.getElementById('galleryModal').classList.remove('hidden');
+            updateGalleryCounter();
         }
         function closeGalleryModal() {
             document.getElementById('galleryModal').classList.add('hidden');
         }
+
+        // ===== INTERACTIVE GALLERY SYSTEM =====
+        let galleryItems = [];
+        let lightboxIndex = 0;
+
+        function getGalleryItems() {
+            return Array.from(document.querySelectorAll('.gallery-item'));
+        }
+
+        function updateGalleryCounter() {
+            const items = getGalleryItems();
+            document.getElementById('gallery-counter').textContent = items.length + ' Exhibits';
+        }
+
+        function addGalleryImage() {
+            const input = document.getElementById('gallery-img-url');
+            const url = input.value.trim();
+            if (!url) { alert('Please paste a valid image URL'); return; }
+
+            const grid = document.getElementById('gallery-grid');
+            const idx = getGalleryItems().length;
+            const captions = ['My Exhibit', 'Product Showcase', 'Innovation', 'Brand Story', 'Creative Work', 'Special Reveal'];
+            const cap = captions[idx % captions.length];
+
+            const div = document.createElement('div');
+            div.className = 'gallery-item group relative aspect-square bg-gray-900 rounded-xl overflow-hidden cursor-pointer border border-white/5 hover:border-cyan-500/40 hover:shadow-[0_0_20px_rgba(34,211,238,0.1)] transition-all duration-300 animate-pulse';
+            div.setAttribute('data-src', url);
+            div.setAttribute('data-caption', cap);
+            div.setAttribute('onclick', 'openLightbox(' + idx + ')');
+            div.innerHTML = `
+                <img src="${url}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" alt="${cap}" onload="this.parentElement.classList.remove('animate-pulse')" onerror="this.parentElement.innerHTML='<div class=\'flex items-center justify-center h-full text-red-400 text-xs font-bold\'>Invalid image</div>'">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                    <div>
+                        <p class="text-white font-black text-sm">${cap}</p>
+                        <p class="text-cyan-400 text-[10px] font-bold uppercase tracking-widest mt-1">🔍 Click to expand</p>
+                    </div>
+                </div>
+                <div class="absolute top-3 right-3 bg-black/60 backdrop-blur-sm rounded-full px-2 py-1 text-[9px] font-black text-white/60">#${idx + 1}</div>
+            `;
+            grid.appendChild(div);
+            input.value = '';
+            updateGalleryCounter();
+        }
+
+        function buildDots(total, current) {
+            const dotsEl = document.getElementById('lightbox-dots');
+            dotsEl.innerHTML = '';
+            for (let i = 0; i < total; i++) {
+                const dot = document.createElement('div');
+                dot.className = i === current
+                    ? 'w-6 h-1.5 bg-cyan-400 rounded-full transition-all'
+                    : 'w-1.5 h-1.5 bg-white/20 rounded-full cursor-pointer transition-all hover:bg-white/50';
+                dot.onclick = (e) => { e.stopPropagation(); openLightbox(i); };
+                dotsEl.appendChild(dot);
+            }
+        }
+
+        function openLightbox(idx) {
+            const items = getGalleryItems();
+            if (!items.length) return;
+            lightboxIndex = Math.max(0, Math.min(idx, items.length - 1));
+            const item = items[lightboxIndex];
+            const src = item.getAttribute('data-src');
+            const cap = item.getAttribute('data-caption');
+
+            const lb = document.getElementById('lightbox');
+            const img = document.getElementById('lightbox-img');
+            const loader = document.getElementById('lightbox-loader');
+
+            img.style.opacity = '0';
+            loader.style.display = 'flex';
+            lb.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+
+            img.onload = () => {
+                img.style.opacity = '1';
+                loader.style.display = 'none';
+            };
+            img.src = src;
+            document.getElementById('lightbox-caption').textContent = cap;
+            document.getElementById('lightbox-count').textContent = (lightboxIndex + 1) + ' / ' + items.length;
+            buildDots(items.length, lightboxIndex);
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.add('hidden');
+            document.getElementById('lightbox-img').src = '';
+            document.body.style.overflow = '';
+        }
+
+        function closeLightboxOnBg(e) {
+            if (e.target === document.getElementById('lightbox')) closeLightbox();
+        }
+
+        function prevLightbox() {
+            const items = getGalleryItems();
+            openLightbox((lightboxIndex - 1 + items.length) % items.length);
+        }
+
+        function nextLightbox() {
+            const items = getGalleryItems();
+            openLightbox((lightboxIndex + 1) % items.length);
+        }
+
+        // Keyboard Navigation
+        document.addEventListener('keydown', (e) => {
+            if (!document.getElementById('lightbox').classList.contains('hidden')) {
+                if (e.key === 'ArrowLeft') prevLightbox();
+                if (e.key === 'ArrowRight') nextLightbox();
+                if (e.key === 'Escape') closeLightbox();
+            }
+        });
+
     </script>
     <x-chatbot />
 </x-app-layout>

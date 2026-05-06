@@ -20,13 +20,25 @@ class ExhibitionController extends Controller
     public function auditorium() {
         $dbSessions = Session::all();
         $apiImages = $this->fetchImagesOnly("conference auditorium");
-        return view('auditorium', ['sessions' => $dbSessions, 'images' => $apiImages]);
+        $optimizedImages = array_map(function($img) {
+            return [
+                'thumb' => $img['urls']['small'] ?? $img['urls']['regular'],
+                'full'  => $img['urls']['regular']
+            ];
+        }, $apiImages);
+        return view('auditorium', ['sessions' => $dbSessions, 'images' => $optimizedImages]);
     }
 
     public function booths() {
         $dbBooths = Booth::all();
         $apiImages = $this->fetchImagesOnly("trade show booth");
-        return view('booths', ['dbBooths' => $dbBooths, 'images' => $apiImages]);
+        $optimizedImages = array_map(function($img) {
+            return [
+                'thumb' => $img['urls']['small'] ?? $img['urls']['regular'],
+                'full'  => $img['urls']['regular']
+            ];
+        }, $apiImages);
+        return view('booths', ['dbBooths' => $dbBooths, 'images' => $optimizedImages]);
     }
 
     private function fetchImagesOnly($query) {
@@ -123,16 +135,20 @@ class ExhibitionController extends Controller
 
     public function storeFeedback(Request $request) {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'message' => 'required|string',
+            'name'    => 'required|string|max:255',
+            'email'   => 'required|email|max:255',
+            'rating'  => 'required|integer|min:1|max:5',
+            'message' => 'required|string|min:10',
         ]);
 
         Feedback::create([
-            'name' => $request->name,
+            'name'    => $request->name,
+            'email'   => $request->email,
+            'rating'  => $request->rating,
             'message' => $request->message,
             'user_id' => auth()->id(),
         ]);
 
-        return redirect()->route('feedback')->with('status', 'Thank you for your feedback!');
+        return redirect()->route('feedback')->with('status', 'Thank you for your feedback! We truly appreciate it. ⭐');
     }
 }

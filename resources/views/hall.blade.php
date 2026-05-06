@@ -30,13 +30,29 @@
                             </div>
                             
                             <!-- Hall A Viewer -->
-                            <div id="viewer-hall-a" class="w-full h-[550px] bg-black rounded-xl overflow-hidden relative shadow-[0_0_50px_rgba(34,211,238,0.2)] border border-white/5">
-                                <iframe title="Virtual Exhibition Gallery A" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/231fdb3e9e354c6faaa3c250f8c9988f/embed?autostart=1&ui_theme=dark" class="w-full h-full"> </iframe>
+                            <div id="viewer-hall-a" class="relative w-full bg-black rounded-xl overflow-hidden shadow-[0_0_50px_rgba(34,211,238,0.2)] border border-white/5">
+                                <div class="w-full h-[550px]">
+                                    <iframe title="Virtual Exhibition Gallery A" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share
+                                        src="https://sketchfab.com/models/231fdb3e9e354c6faaa3c250f8c9988f/embed?autostart=1&ui_theme=dark&ui_controls=1&ui_infos=0&ui_stop=0&ui_inspector=0&ui_watermark=0&ui_ar=1&ui_help=0"
+                                        class="w-full h-full">
+                                    </iframe>
+                                </div>
+                                <div class="absolute bottom-4 right-4 flex gap-2">
+                                    <button onclick="toggleFullscreen('viewer-hall-a')" class="bg-black/60 backdrop-blur-md border border-white/10 text-white text-[10px] font-black px-4 py-2 rounded-full hover:border-cyan-500 transition">⛶ FULLSCREEN</button>
+                                </div>
                             </div>
 
                             <!-- Hall B Viewer (Hidden initially) -->
-                            <div id="viewer-hall-b" class="hidden w-full h-[550px] bg-black rounded-xl overflow-hidden relative shadow-[0_0_50px_rgba(168,85,247,0.2)] border border-white/5">
-                                <iframe title="Virtual Exhibition Gallery B" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/4442df39a3f24097b6a908233f001f3f/embed?autostart=1&ui_theme=dark" class="w-full h-full"> </iframe>
+                            <div id="viewer-hall-b" class="hidden relative w-full bg-black rounded-xl overflow-hidden shadow-[0_0_50px_rgba(168,85,247,0.2)] border border-white/5">
+                                <div class="w-full h-[550px]">
+                                    <iframe title="Virtual Exhibition Gallery B" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share
+                                        src="https://sketchfab.com/models/4442df39a3f24097b6a908233f001f3f/embed?autostart=1&ui_theme=dark&ui_controls=1&ui_infos=0&ui_stop=0&ui_inspector=0&ui_watermark=0&ui_ar=1"
+                                        class="w-full h-full">
+                                    </iframe>
+                                </div>
+                                <div class="absolute bottom-4 right-4 flex gap-2">
+                                    <button onclick="toggleFullscreen('viewer-hall-b')" class="bg-black/60 backdrop-blur-md border border-white/10 text-white text-[10px] font-black px-4 py-2 rounded-full hover:border-purple-500 transition">⛶ FULLSCREEN</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -158,6 +174,15 @@
         }
         function closeModal() {
             document.getElementById('imageModal').classList.add('hidden');
+        }
+
+        function toggleFullscreen(id) {
+            const el = document.getElementById(id);
+            if (!document.fullscreenElement) {
+                el.requestFullscreen().catch(err => console.log(err));
+            } else {
+                document.exitFullscreen();
+            }
         }
 
         window.addEventListener('DOMContentLoaded', () => {

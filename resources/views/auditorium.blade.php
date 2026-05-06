@@ -14,9 +14,8 @@
                     <div class="bg-gray-900 overflow-hidden shadow-sm sm:rounded-lg border border-gray-700 mb-8">
                         <div class="p-6 text-gray-100">
                             <h3 class="text-3xl font-black text-white tracking-tighter uppercase mb-6">Live Stage</h3>
-                            <div class="w-full aspect-video bg-black rounded-lg overflow-hidden border border-gray-700 shadow-[0_0_20px_rgba(192,132,252,0.3)]">
-                                <!-- Dummy Video Player -->
-                                <iframe class="w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>
+                            <div class="w-full aspect-video bg-black rounded-xl overflow-hidden border border-purple-500/30 shadow-[0_0_40px_rgba(192,132,252,0.2)]">
+                                <iframe class="w-full h-full" src="https://www.youtube.com/embed/jqxENMKaeCU?autoplay=0&rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                             </div>
                             <h4 class="text-xl font-bold mt-4">Keynote: Future of Virtual Tech</h4>
                             <p class="text-gray-400 mt-2">Speaker: Dr. Jane Doe | Time: Now</p>

@@ -57,9 +57,62 @@
                 <div class="md:w-1/2 p-6 flex flex-col justify-center">
                     <h3 id="boothModalTitle" class="text-4xl font-black text-white mb-4 tracking-tighter">Booth Details</h3>
                     <p id="boothModalDesc" class="text-gray-400 mb-8 leading-relaxed">This stall features interactive hoster content and direct engagement channels.</p>
-                    <button class="w-full bg-pink-600 hover:bg-pink-500 text-white font-black py-4 rounded-xl text-xs uppercase tracking-widest shadow-[0_0_20px_rgba(219,39,119,0.3)] transition mb-4">Contact Hoster</button>
-                    <button class="w-full bg-white/5 hover:bg-white/10 text-white font-black py-4 rounded-xl text-xs uppercase tracking-widest border border-white/10 transition">Enter Gallery</button>
+                    <button onclick="openContactModal()" class="w-full bg-pink-600 hover:bg-pink-500 text-white font-black py-4 rounded-xl text-xs uppercase tracking-widest shadow-[0_0_20px_rgba(219,39,119,0.3)] transition mb-4">📩 Contact Hoster</button>
+                    <button onclick="openGalleryModal()" class="w-full bg-white/5 hover:bg-white/10 text-white font-black py-4 rounded-xl text-xs uppercase tracking-widest border border-cyan-500/30 hover:border-cyan-500 transition">🖼️ Enter Gallery</button>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Hoster Modal -->
+    <div id="contactModal" class="fixed inset-0 z-[200] hidden bg-black/95 flex items-center justify-center p-4">
+        <div class="bg-gray-900 max-w-lg w-full rounded-2xl border border-pink-500/30 shadow-[0_0_60px_rgba(236,72,153,0.2)] overflow-hidden">
+            <div class="p-6 bg-pink-600/10 border-b border-pink-500/20 flex justify-between items-center">
+                <div>
+                    <h3 class="text-2xl font-black text-white">📩 Contact Hoster</h3>
+                    <p class="text-pink-400 text-xs font-bold mt-1">Send a direct message to the booth owner</p>
+                </div>
+                <button onclick="closeContactModal()" class="text-gray-400 hover:text-white text-2xl font-bold">&times;</button>
+            </div>
+            <div class="p-6 space-y-4">
+                <div>
+                    <label class="text-xs font-black text-gray-400 uppercase tracking-widest block mb-2">Your Name</label>
+                    <input type="text" id="contact-name" placeholder="Enter your name" class="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-pink-500 transition">
+                </div>
+                <div>
+                    <label class="text-xs font-black text-gray-400 uppercase tracking-widest block mb-2">Your Email</label>
+                    <input type="email" id="contact-email" placeholder="your@email.com" class="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-pink-500 transition">
+                </div>
+                <div>
+                    <label class="text-xs font-black text-gray-400 uppercase tracking-widest block mb-2">Message</label>
+                    <textarea id="contact-message" rows="4" placeholder="Hi! I'm interested in your booth..." class="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-pink-500 transition resize-none"></textarea>
+                </div>
+                <button onclick="sendContact()" class="w-full bg-pink-600 hover:bg-pink-500 text-white font-black py-4 rounded-xl text-xs uppercase tracking-widest transition shadow-[0_0_20px_rgba(236,72,153,0.3)]">Send Message →</button>
+                <div id="contact-success" class="hidden text-center text-green-400 font-black text-sm py-2">✅ Message sent! The hoster will reply soon.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gallery Modal -->
+    <div id="galleryModal" class="fixed inset-0 z-[200] hidden bg-black/95 flex items-center justify-center p-4">
+        <div class="bg-gray-900 max-w-4xl w-full rounded-2xl border border-cyan-500/30 shadow-[0_0_60px_rgba(34,211,238,0.15)] overflow-hidden">
+            <div class="p-6 bg-cyan-600/10 border-b border-cyan-500/20 flex justify-between items-center">
+                <div>
+                    <h3 class="text-2xl font-black text-white">🖼️ Gallery View</h3>
+                    <p class="text-cyan-400 text-xs font-bold mt-1">Immersive booth gallery experience</p>
+                </div>
+                <button onclick="closeGalleryModal()" class="text-gray-400 hover:text-white text-2xl font-bold">&times;</button>
+            </div>
+            <div class="p-6">
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    <div class="aspect-square bg-gray-800 rounded-xl overflow-hidden"><img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&q=80" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" alt="Gallery"></div>
+                    <div class="aspect-square bg-gray-800 rounded-xl overflow-hidden"><img src="https://images.unsplash.com/photo-1547826039-bfc35e0f1ea8?w=400&q=80" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" alt="Gallery"></div>
+                    <div class="aspect-square bg-gray-800 rounded-xl overflow-hidden"><img src="https://images.unsplash.com/photo-1563089145-599997674d42?w=400&q=80" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" alt="Gallery"></div>
+                    <div class="aspect-square bg-gray-800 rounded-xl overflow-hidden"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" alt="Gallery"></div>
+                    <div class="aspect-square bg-gray-800 rounded-xl overflow-hidden"><img src="https://images.unsplash.com/photo-1483982258113-b72862e6cff6?w=400&q=80" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" alt="Gallery"></div>
+                    <div class="aspect-square bg-gray-800 rounded-xl overflow-hidden"><img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=400&q=80" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" alt="Gallery"></div>
+                </div>
+                <p class="text-center text-gray-500 text-xs font-bold mt-4 uppercase tracking-widest">Swipe to explore all exhibits</p>
             </div>
         </div>
     </div>
@@ -79,6 +132,32 @@
         }
         function closeBoothModal() {
             document.getElementById('boothModal').classList.add('hidden');
+        }
+        function openContactModal() {
+            document.getElementById('boothModal').classList.add('hidden');
+            document.getElementById('contactModal').classList.remove('hidden');
+        }
+        function closeContactModal() {
+            document.getElementById('contactModal').classList.add('hidden');
+            document.getElementById('contact-success').classList.add('hidden');
+        }
+        function sendContact() {
+            const name = document.getElementById('contact-name').value.trim();
+            const email = document.getElementById('contact-email').value.trim();
+            const msg = document.getElementById('contact-message').value.trim();
+            if (!name || !email || !msg) { alert('Please fill all fields!'); return; }
+            document.getElementById('contact-success').classList.remove('hidden');
+            document.getElementById('contact-name').value = '';
+            document.getElementById('contact-email').value = '';
+            document.getElementById('contact-message').value = '';
+            setTimeout(() => closeContactModal(), 3000);
+        }
+        function openGalleryModal() {
+            document.getElementById('boothModal').classList.add('hidden');
+            document.getElementById('galleryModal').classList.remove('hidden');
+        }
+        function closeGalleryModal() {
+            document.getElementById('galleryModal').classList.add('hidden');
         }
     </script>
     <x-chatbot />

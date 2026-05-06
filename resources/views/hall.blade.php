@@ -60,7 +60,12 @@
                     <!-- Dynamic Images from API -->
                     <div class="bg-gray-900 overflow-hidden shadow-2xl sm:rounded-2xl border border-gray-800">
                         <div class="p-8 text-gray-100">
-                            <h3 class="text-3xl font-black mb-6 gradient-text">Exhibition Sections</h3>
+                            <div class="flex justify-between items-center mb-6">
+                                <h3 class="text-3xl font-black gradient-text">Exhibition Sections</h3>
+                                @if(auth()->check() && auth()->user()->role === 'creator')
+                                    <button onclick="openHostModal()" class="px-6 py-2 bg-cyan-600/20 border border-cyan-500 text-cyan-400 text-[10px] font-black uppercase tracking-widest rounded-full hover:bg-cyan-500 hover:text-black transition">+ Host Here</button>
+                                @endif
+                            </div>
                             
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                                 @foreach($images as $img)
@@ -76,7 +81,73 @@
                                         </div>
                                     </div>
                                 @endforeach
+
+                                <!-- Empty Host Slots -->
+                                @for($slot = 0; $slot < 3; $slot++)
+                                <div onclick="openHostModal()" class="relative group rounded-xl border-2 border-dashed border-white/10 hover:border-cyan-500/50 hover:shadow-[0_0_30px_rgba(34,211,238,0.1)] transition-all duration-500 cursor-pointer aspect-video flex flex-col items-center justify-center gap-3 bg-black/20 hover:bg-cyan-500/5">
+                                    <div class="w-12 h-12 rounded-full border-2 border-dashed border-white/20 group-hover:border-cyan-500 flex items-center justify-center transition-all duration-300">
+                                        <span class="text-2xl text-white/20 group-hover:text-cyan-400 transition">+</span>
+                                    </div>
+                                    <div class="text-center">
+                                        <p class="text-white/30 group-hover:text-cyan-400 font-black text-xs uppercase tracking-widest transition">Host Here</p>
+                                        <p class="text-white/20 text-[10px] mt-1">Claim this exhibition slot</p>
+                                    </div>
+                                    <span class="absolute top-3 right-3 text-[9px] font-black text-white/20 group-hover:text-cyan-500 uppercase tracking-widest transition">AVAILABLE</span>
+                                </div>
+                                @endfor
                             </div>
+                        </div>
+                    </div>
+
+                    <!-- Host Exhibition Modal -->
+                    <div id="hostModal" class="fixed inset-0 z-[200] hidden bg-black/95 flex items-center justify-center p-4">
+                        <div class="bg-gray-900 max-w-lg w-full rounded-2xl border border-cyan-500/30 shadow-[0_0_60px_rgba(34,211,238,0.15)] overflow-hidden">
+                            <div class="p-6 bg-cyan-600/10 border-b border-cyan-500/20 flex justify-between items-center">
+                                <div>
+                                    <h3 class="text-2xl font-black text-white">🚀 Host Your Exhibition</h3>
+                                    <p class="text-cyan-400 text-xs font-bold mt-1">Claim this slot and go live on Exora</p>
+                                </div>
+                                <button onclick="closeHostModal()" class="text-gray-400 hover:text-white text-2xl font-bold">&times;</button>
+                            </div>
+                            @if(auth()->check() && auth()->user()->role === 'creator')
+                            <form method="POST" action="{{ route('exhibition.store') }}" class="p-6 space-y-4">
+                                @csrf
+                                <div>
+                                    <label class="text-xs font-black text-gray-400 uppercase tracking-widest block mb-2">Exhibition Title <span class="text-red-500">*</span></label>
+                                    <input type="text" name="title" placeholder="e.g. Tech Innovation Expo 2026" class="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-cyan-500 transition" required>
+                                </div>
+                                <div>
+                                    <label class="text-xs font-black text-gray-400 uppercase tracking-widest block mb-2">Description <span class="text-red-500">*</span></label>
+                                    <textarea name="description" rows="3" placeholder="Describe your exhibition..." class="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-cyan-500 transition resize-none" required></textarea>
+                                </div>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="text-xs font-black text-gray-400 uppercase tracking-widest block mb-2">Hall</label>
+                                        <select name="hall" class="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-cyan-500 transition">
+                                            <option value="A">Atrium A</option>
+                                            <option value="B">Tech-Expanse B</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="text-xs font-black text-gray-400 uppercase tracking-widest block mb-2">Duration</label>
+                                        <select name="duration" class="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-cyan-500 transition">
+                                            <option>1 Day</option>
+                                            <option>3 Days</option>
+                                            <option selected>1 Week</option>
+                                            <option>1 Month</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <button type="submit" class="w-full bg-gradient-to-r from-cyan-600 to-purple-600 hover:from-cyan-500 hover:to-purple-500 text-white font-black py-4 rounded-xl text-xs uppercase tracking-widest transition-all shadow-[0_0_30px_rgba(34,211,238,0.2)]">🚀 Go Live on Exora</button>
+                            </form>
+                            @else
+                            <div class="p-8 text-center">
+                                <p class="text-4xl mb-4">🔒</p>
+                                <h4 class="text-white font-black text-xl mb-2">Hoster Account Required</h4>
+                                <p class="text-gray-400 text-sm mb-6">Only Hosters can claim exhibition slots. Register as a Hoster to go live on Exora!</p>
+                                <a href="{{ route('register') }}" class="inline-block bg-cyan-600 hover:bg-cyan-500 text-white font-black py-3 px-8 rounded-xl text-xs uppercase tracking-widest transition">Become a Hoster →</a>
+                            </div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -174,6 +245,12 @@
         }
         function closeModal() {
             document.getElementById('imageModal').classList.add('hidden');
+        }
+        function openHostModal() {
+            document.getElementById('hostModal').classList.remove('hidden');
+        }
+        function closeHostModal() {
+            document.getElementById('hostModal').classList.add('hidden');
         }
 
         function toggleFullscreen(id) {

@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .chatbot-glass {
+        @apply bg-white/80 backdrop-blur-lg border border-white/20 shadow-2xl;
+    }
+    .section-title {
+        @apply text-3xl md:text-5xl font-black text-center mb-12 text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400;
+    }
+    .gradient-text {
+        @apply text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500;
+    }
+    .info-card {
+        @apply p-8 bg-gray-900/40 backdrop-blur-xl rounded-2xl border border-gray-800 hover:border-gray-600 transition-all duration-300;
+    }
+}
+
+@keyframes slide-in-up {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-slide-in-up {
+    animation: slide-in-up 0.4s ease-out forwards;
+}

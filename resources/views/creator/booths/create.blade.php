@@ -38,9 +38,13 @@
                                     <textarea name="description" rows="4" class="w-full bg-black/50 border border-white/10 rounded-2xl text-white px-6 py-4 focus:ring-2 focus:ring-pink-500 outline-none transition" placeholder="Tell your brand story..." required></textarea>
                                 </div>
 
-                                <div>
                                     <label class="block text-[10px] font-black text-gray-500 uppercase tracking-widest mb-3">Digital Asset URL (Optional)</label>
                                     <input type="url" name="image_url" class="w-full bg-black/50 border border-white/10 rounded-2xl text-white px-6 py-4 focus:ring-2 focus:ring-pink-500 outline-none transition" placeholder="https://unsplash.com/...">
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-[10px] font-black text-gray-500 uppercase tracking-widest mb-3">Video Embed URL (Optional)</label>
+                                    <input type="url" name="video_url" class="w-full bg-black/50 border border-white/10 rounded-2xl text-white px-6 py-4 focus:ring-2 focus:ring-pink-500 outline-none transition" placeholder="https://www.youtube.com/embed/...">
                                 </div>
                                 
                                 <div class="pt-4">

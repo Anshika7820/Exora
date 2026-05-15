@@ -17,7 +17,17 @@ class FeatureController extends Controller
         
         // Greetings
         if (preg_match('/\b(hi|hello|hey|greetings|hola)\b/', $message)) {
-            return response()->json(['reply' => "Hello! 👋 I'm your Virtual Expo Assistant. How can I help you navigate the exhibition today?"]);
+            return response()->json(['reply' => "Hello! 👋 I'm your Exora Virtual Assistant. I'm here to help you navigate our 7 interactive 3D halls, auditorium sessions, and marketplaces. How can I assist you today?"]);
+        }
+
+        // How are you
+        if (str_contains($message, 'how are you') || str_contains($message, 'how r u') || str_contains($message, 'how do you do')) {
+            return response()->json(['reply' => "I am functioning perfectly within the Exora digital realm! 🤖 I'm ready to guide you through our stunning 3D exhibitions. What would you like to explore first?"]);
+        }
+
+        // Who are you / What are you
+        if (str_contains($message, 'who are you') || str_contains($message, 'what are you') || str_contains($message, 'your name')) {
+            return response()->json(['reply' => "I am the Exora AI Assistant! My core directive is to ensure you have an unforgettable, immersive experience across our virtual exhibition platform."]);
         }
 
         if (str_contains($message, 'session') || str_contains($message, 'schedule')) {
@@ -49,10 +59,17 @@ class FeatureController extends Controller
         }
 
         if (str_contains($message, 'help') || str_contains($message, 'what can you do')) {
-            return response()->json(['reply' => "I can help you find 'sessions', locate 'booths', explain how to earn 'points', or guide you to the 'auditorium'. What would you like to know?"]);
+            return response()->json(['reply' => "I can help you find upcoming 'sessions' in the Auditorium, locate 'booths' in our Marketplaces, explain how to earn 'points' for your Expo Passport, or guide you through our 7 unique 3D 'halls'. What would you like to know?"]);
         }
 
-        return response()->json(['reply' => "I'm not sure I understand that yet. Try asking about 'sessions', 'booths', or how to earn 'points'!"]);
+        // Catch-all
+        $catchAllResponses = [
+            "I'm deeply integrated into the Exora platform, but I might need a bit more context. Try asking me about our 3D 'halls', live 'sessions', or virtual 'booths'!",
+            "That's interesting! While I'm an expert on the Exora Virtual Exhibition Platform, I might not have the answer to that. Are you looking to explore a specific 'hall' or 'booth'?",
+            "As an AI dedicated to this virtual expo, my knowledge is focused on our 7 themed halls and auditorium events. Can I help you navigate to any of those?"
+        ];
+        
+        return response()->json(['reply' => $catchAllResponses[array_rand($catchAllResponses)]]);
     }
 
     // 2 & 3. Gamification (Earn Points) and Analytics (Views)

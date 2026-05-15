@@ -23,8 +23,9 @@
                                 $imgData = $images[array_rand($images)];
                                 $imgThumb = $booth->image_url ?: $imgData['thumb'];
                                 $imgFull = $booth->image_url ?: $imgData['full'];
+                                $videoUrl = $booth->video_url ?: '';
                             @endphp
-                            <div class="group bg-black/50 rounded-2xl overflow-hidden border border-white/5 hover:border-pink-500/50 hover:shadow-[0_0_30px_rgba(236,72,153,0.15)] transition-all duration-500 cursor-pointer" onclick="openBoothModal('{{ addslashes($booth->title) }}', '{{ addslashes($booth->description) }}', '{{ $imgFull }}')">
+                            <div class="group bg-black/50 rounded-2xl overflow-hidden border border-white/5 hover:border-pink-500/50 hover:shadow-[0_0_30px_rgba(236,72,153,0.15)] transition-all duration-500 cursor-pointer" onclick="openBoothModal('{{ addslashes($booth->title) }}', '{{ addslashes($booth->description) }}', '{{ $imgFull }}', '{{ $videoUrl }}')">
                                 <div class="aspect-[4/3] overflow-hidden bg-gray-800">
                                     <img src="{{ $imgThumb }}" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out" alt="Booth">
                                 </div>
@@ -51,8 +52,9 @@
         <div class="relative bg-gray-900 max-w-3xl w-full rounded-lg border border-gray-700 overflow-hidden shadow-2xl">
             <button class="absolute top-4 right-4 text-white hover:text-gray-300 text-3xl font-bold z-10" onclick="closeBoothModal()">&times;</button>
             <div class="flex flex-col md:flex-row h-full">
-                <div class="md:w-1/2">
+                <div class="md:w-1/2" id="boothMediaContainer">
                     <img id="boothModalImg" src="" class="w-full h-full object-cover min-h-[300px]">
+                    <iframe id="boothModalVideo" src="" class="w-full h-full min-h-[300px] hidden" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
                 </div>
                 <div class="md:w-1/2 p-6 flex flex-col justify-center">
                     <h3 id="boothModalTitle" class="text-4xl font-black text-white mb-4 tracking-tighter">Booth Details</h3>
@@ -165,10 +167,30 @@
     </div>
 
     <script>
-        function openBoothModal(title, description, imgUrl) {
+        function openBoothModal(title, description, imgUrl, videoUrl = '') {
             document.getElementById('boothModalTitle').innerText = title;
             document.getElementById('boothModalDesc').innerText = description;
-            document.getElementById('boothModalImg').src = imgUrl;
+            
+            const imgEl = document.getElementById('boothModalImg');
+            const vidEl = document.getElementById('boothModalVideo');
+
+            if (videoUrl) {
+                let embedUrl = videoUrl;
+                if (videoUrl.includes('youtube.com/watch?v=')) {
+                    embedUrl = videoUrl.replace('watch?v=', 'embed/');
+                } else if (videoUrl.includes('youtu.be/')) {
+                    embedUrl = videoUrl.replace('youtu.be/', 'youtube.com/embed/');
+                }
+                vidEl.src = embedUrl;
+                vidEl.classList.remove('hidden');
+                imgEl.classList.add('hidden');
+            } else {
+                imgEl.src = imgUrl;
+                imgEl.classList.remove('hidden');
+                vidEl.classList.add('hidden');
+                vidEl.src = '';
+            }
+
             document.getElementById('boothModal').classList.remove('hidden');
 
             // Gamification: Earn points for interacting with a booth
@@ -179,6 +201,7 @@
         }
         function closeBoothModal() {
             document.getElementById('boothModal').classList.add('hidden');
+            document.getElementById('boothModalVideo').src = '';
         }
         function openContactModal() {
             document.getElementById('boothModal').classList.add('hidden');

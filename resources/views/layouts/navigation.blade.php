@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-black border-b border-white/5 sticky top-0 z-[100] backdrop-blur-md bg-black/80">
+<nav x-data="{ open: false }" class="bg-black/40 border-b border-white/5 sticky top-0 z-[100] backdrop-blur-2xl transition-all duration-300 shadow-[0_4px_30px_rgba(0,0,0,0.1)]">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-20">
@@ -13,20 +13,26 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-12 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="text-gray-400 hover:text-white font-bold text-xs uppercase tracking-widest transition">
+                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="relative text-gray-400 hover:text-white font-bold text-[10px] uppercase tracking-[0.2em] transition-all duration-300 {{ request()->routeIs('dashboard') ? 'text-cyan-400 shadow-[0_1px_0_0_#22d3ee]' : '' }}">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('hall')" :active="request()->routeIs('hall')" class="text-gray-400 hover:text-white font-bold text-xs uppercase tracking-widest transition">
+                    <x-nav-link :href="route('hall')" :active="request()->routeIs('hall')" class="relative text-gray-400 hover:text-white font-bold text-[10px] uppercase tracking-[0.2em] transition-all duration-300 {{ request()->routeIs('hall') ? 'text-cyan-400 shadow-[0_1px_0_0_#22d3ee]' : '' }}">
                         {{ __('Hall') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('auditorium')" :active="request()->routeIs('auditorium')" class="text-gray-400 hover:text-white font-bold text-xs uppercase tracking-widest transition">
+                    <x-nav-link :href="route('auditorium')" :active="request()->routeIs('auditorium')" class="relative text-gray-400 hover:text-white font-bold text-[10px] uppercase tracking-[0.2em] transition-all duration-300 {{ request()->routeIs('auditorium') ? 'text-cyan-400 shadow-[0_1px_0_0_#22d3ee]' : '' }}">
                         {{ __('Auditorium') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('booths')" :active="request()->routeIs('booths')" class="text-gray-400 hover:text-white font-bold text-xs uppercase tracking-widest transition">
+                    <x-nav-link :href="route('booths')" :active="request()->routeIs('booths')" class="relative text-gray-400 hover:text-white font-bold text-[10px] uppercase tracking-[0.2em] transition-all duration-300 {{ request()->routeIs('booths') ? 'text-cyan-400 shadow-[0_1px_0_0_#22d3ee]' : '' }}">
                         {{ __('Booths') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('feedback')" :active="request()->routeIs('feedback')" class="text-gray-400 hover:text-white font-bold text-xs uppercase tracking-widest transition">
+                    <x-nav-link :href="route('feedback')" :active="request()->routeIs('feedback')" class="relative text-gray-400 hover:text-white font-bold text-[10px] uppercase tracking-[0.2em] transition-all duration-300 {{ request()->routeIs('feedback') ? 'text-cyan-400 shadow-[0_1px_0_0_#22d3ee]' : '' }}">
                         {{ __('Feedback') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('about')" :active="request()->routeIs('about')" class="relative text-gray-400 hover:text-white font-bold text-[10px] uppercase tracking-[0.2em] transition-all duration-300 {{ request()->routeIs('about') ? 'text-cyan-400 shadow-[0_1px_0_0_#22d3ee]' : '' }}">
+                        {{ __('About') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('contact')" :active="request()->routeIs('contact')" class="relative text-gray-400 hover:text-white font-bold text-[10px] uppercase tracking-[0.2em] transition-all duration-300 {{ request()->routeIs('contact') ? 'text-cyan-400 shadow-[0_1px_0_0_#22d3ee]' : '' }}">
+                        {{ __('Contact') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -102,6 +108,12 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('booths')" :active="request()->routeIs('booths')" class="text-gray-300">
                 {{ __('Booths') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('about')" :active="request()->routeIs('about')" class="text-gray-300">
+                {{ __('About') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('contact')" :active="request()->routeIs('contact')" class="text-gray-300">
+                {{ __('Contact') }}
             </x-responsive-nav-link>
         </div>
 

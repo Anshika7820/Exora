@@ -15,7 +15,7 @@
                         <div class="p-6 text-gray-100">
                             <h3 class="text-3xl font-black text-white tracking-tighter uppercase mb-6">Live Stage</h3>
                             <div class="w-full aspect-video bg-black rounded-xl overflow-hidden border border-purple-500/30 shadow-[0_0_40px_rgba(192,132,252,0.2)]">
-                                <iframe class="w-full h-full" src="https://www.youtube.com/embed/LqH1PZgpxPs?autoplay=0&rel=0&modestbranding=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                <iframe class="w-full h-full" src="https://www.youtube.com/embed/LXb3EKWsInQ?autoplay=0&rel=0&modestbranding=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                             </div>
                             <h4 class="text-xl font-bold mt-4">Keynote: Future of Virtual Tech</h4>
                             <p class="text-gray-400 mt-2">Speaker: Dr. Jane Doe | Time: Now</p>
@@ -91,14 +91,16 @@
         function openSession(title, url) {
             // Convert YouTube URL to Embed URL if needed
             let embedUrl = url;
-            if (url.includes('youtube.com/watch?v=')) {
-                embedUrl = url.replace('watch?v=', 'embed/');
-            } else if (url.includes('youtu.be/')) {
-                embedUrl = url.replace('youtu.be/', 'youtube.com/embed/');
+            if (url && typeof url === 'string') {
+                if (url.includes('youtube.com/watch?v=')) {
+                    embedUrl = url.replace('watch?v=', 'embed/');
+                } else if (url.includes('youtu.be/')) {
+                    embedUrl = url.replace('youtu.be/', 'youtube.com/embed/');
+                }
             }
             
             document.getElementById('sessionModalTitle').innerText = title;
-            document.getElementById('sessionIframe').src = embedUrl || 'https://www.youtube.com/embed/dQw4w9WgXcQ'; // Default demo
+            document.getElementById('sessionIframe').src = embedUrl || 'https://www.youtube.com/embed/LXb3EKWsInQ'; // Reliable HD demo video
             document.getElementById('sessionModal').classList.remove('hidden');
 
             // Earn points for attending!

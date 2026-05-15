@@ -17,24 +17,32 @@
         <style>
             body { font-family: 'Plus Jakarta Sans', sans-serif; }
             .bg-auth {
-                background: radial-gradient(circle at 0% 0%, rgba(34, 211, 238, 0.15) 0%, transparent 50%),
-                            radial-gradient(circle at 100% 100%, rgba(168, 85, 247, 0.15) 0%, transparent 50%);
+                background-color: #050505;
+                position: relative;
+                overflow-x: hidden;
+            }
+            .aurora-bg {
+                position: fixed;
+                top: 0; left: 0; width: 100vw; height: 100vh;
+                z-index: -1;
+                background: 
+                    radial-gradient(circle at 15% 50%, rgba(34, 211, 238, 0.15) 0%, transparent 50%),
+                    radial-gradient(circle at 85% 30%, rgba(168, 85, 247, 0.15) 0%, transparent 50%);
+                animation: aurora-shift 15s ease-in-out infinite alternate;
+            }
+            @keyframes aurora-shift {
+                0% { transform: scale(1) translate(0, 0); }
+                100% { transform: scale(1.1) translate(-2%, 2%); }
             }
         </style>
     </head>
-    <body class="font-sans antialiased bg-[#050505] text-white bg-auth">
-        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0">
-            <div class="mb-8">
-                <a href="/" class="text-3xl font-black tracking-tighter gradient-text">
-                    Exora
-                </a>
-            </div>
+    <body class="font-sans antialiased text-white bg-auth">
+        <div class="aurora-bg"></div>
+        <div class="min-h-screen w-full flex animate-fade-in-up">
+            {{ $slot }}
 
-            <div class="w-full sm:max-w-md mt-6 px-10 py-12 bg-gray-900/50 backdrop-blur-2xl border border-white/10 shadow-2xl overflow-hidden sm:rounded-3xl">
-                {{ $slot }}
-            </div>
             
-            <div class="mt-8 text-gray-600 text-xs uppercase tracking-widest font-bold">
+            <div class="absolute bottom-6 left-1/2 -translate-x-1/2 text-gray-600 text-[10px] uppercase tracking-[0.3em] font-black">
                 Secure Entry Portal
             </div>
         </div>

@@ -6,6 +6,6 @@ use MongoDB\Laravel\Eloquent\Model;
 
 class Booth extends Model
 {
-    protected $fillable = ['title', 'image_url', 'description', 'exhibition_id'];
-    //
+    protected $collection = 'trade_booths';
+    protected $fillable = ['title', 'image_url', 'video_url', 'description', 'exhibition_id'];
 }

@@ -19,6 +19,7 @@
             .gradient-text { background: linear-gradient(135deg, #22d3ee 0%, #a855f7 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
             .glass-card { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.05); }
         </style>
+        @stack('head')
     </head>
     <body class="antialiased bg-[#050505] text-gray-200">
         <div class="min-h-screen">

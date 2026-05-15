@@ -22,13 +22,18 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     
     // Core Platform Routes
-    Route::get('/hall', [ExhibitionController::class, 'hall'])->name('hall');
+    Route::get('/hall/{id?}', [ExhibitionController::class, 'hall'])->name('hall');
     Route::get('/auditorium', [ExhibitionController::class, 'auditorium'])->name('auditorium');
     Route::get('/booths', [ExhibitionController::class, 'booths'])->name('booths');
     
     // Feedback
     Route::get('/feedback', [ExhibitionController::class, 'feedback'])->name('feedback');
     Route::post('/feedback', [ExhibitionController::class, 'storeFeedback'])->name('feedback.store');
+
+    // Pages
+    Route::get('/about', [ExhibitionController::class, 'about'])->name('about');
+    Route::get('/contact', [ExhibitionController::class, 'contact'])->name('contact');
+    Route::post('/contact', [ExhibitionController::class, 'storeContact'])->name('contact.store');
 
     // Advanced Features API Routes
     Route::post('/api/chatbot', [\App\Http\Controllers\FeatureController::class, 'chatbot']);
@@ -42,6 +47,7 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'creator'])->group(function () {
     Route::get('/creator/exhibitions/create', [ExhibitionController::class, 'create'])->name('exhibition.create');
     Route::post('/creator/exhibitions', [ExhibitionController::class, 'store'])->name('exhibition.store');
+    Route::post('/creator/exhibit-item', [ExhibitionController::class, 'storeExhibitItem'])->name('exhibit.item.store');
     
     Route::get('/creator/booths/create', [ExhibitionController::class, 'createBooth'])->name('booth.create');
     Route::post('/creator/booths', [ExhibitionController::class, 'storeBooth'])->name('booth.store');

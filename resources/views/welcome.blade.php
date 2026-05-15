@@ -131,22 +131,22 @@
         <!-- Experience Grid -->
         <section id="experience" class="py-32 bg-gradient-to-b from-transparent to-white/[0.02] px-6">
             <div class="max-w-7xl mx-auto">
-                <h2 class="section-title">The Exora Experience</h2>
+                <h2 class="section-title text-4xl md:text-5xl font-black text-center mb-16">The Exora Experience</h2>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-                    <div class="info-card">
-                        <div class="w-16 h-16 bg-cyan-500/20 rounded-2xl flex items-center justify-center text-3xl mb-8 border border-cyan-500/20">🏛️</div>
-                        <h3 class="text-2xl font-bold mb-4">Multi-Hall Exploration</h3>
-                        <p class="text-gray-400 leading-relaxed text-sm">Switch seamlessly between Hall A (Main Atrium) and Hall B (Tech-Expanse) to explore curated 3D sculptures and digital art.</p>
+                    <div class="p-8 rounded-[2rem] bg-gray-900/50 border border-white/5 hover:bg-gray-800 transition-all group">
+                        <div class="w-16 h-16 bg-cyan-500/20 rounded-2xl flex items-center justify-center text-3xl mb-8 border border-cyan-500/20 group-hover:scale-110 transition-transform">🏛️</div>
+                        <h3 class="text-2xl font-bold mb-4 text-white">7 Themed Exhibition Halls</h3>
+                        <p class="text-gray-400 leading-relaxed text-sm">Switch seamlessly between unique environments including Atrium A, Robotics Hub, Diamond Vault, and Automobile Showcase. Explore curated 3D sculptures and dynamic digital art powered by A-Frame and WebGL.</p>
                     </div>
-                    <div class="info-card">
-                        <div class="w-16 h-16 bg-purple-500/20 rounded-2xl flex items-center justify-center text-3xl mb-8 border border-purple-500/20">🎤</div>
-                        <h3 class="text-2xl font-bold mb-4">Interactive Auditoriums</h3>
-                        <p class="text-gray-400 leading-relaxed text-sm">Join live keynote sessions with integrated real-time chat. Speak with global leaders directly from your dashboard.</p>
+                    <div class="p-8 rounded-[2rem] bg-gray-900/50 border border-white/5 hover:bg-gray-800 transition-all group">
+                        <div class="w-16 h-16 bg-purple-500/20 rounded-2xl flex items-center justify-center text-3xl mb-8 border border-purple-500/20 group-hover:scale-110 transition-transform">🎤</div>
+                        <h3 class="text-2xl font-bold mb-4 text-white">Interactive Live Auditoriums</h3>
+                        <p class="text-gray-400 leading-relaxed text-sm">Join live keynote sessions with integrated real-time community chat. Speak with global leaders directly from your dashboard and engage in synchronous learning.</p>
                     </div>
-                    <div class="info-card">
-                        <div class="w-16 h-16 bg-pink-500/20 rounded-2xl flex items-center justify-center text-3xl mb-8 border border-pink-500/20">🎫</div>
-                        <h3 class="text-2xl font-bold mb-4">Expo Passport</h3>
-                        <p class="text-gray-400 leading-relaxed text-sm">Gamify your journey. Collect stamps, earn points, and climb the global leaderboard as you engage with different brands.</p>
+                    <div class="p-8 rounded-[2rem] bg-gray-900/50 border border-white/5 hover:bg-gray-800 transition-all group">
+                        <div class="w-16 h-16 bg-pink-500/20 rounded-2xl flex items-center justify-center text-3xl mb-8 border border-pink-500/20 group-hover:scale-110 transition-transform">🚀</div>
+                        <h3 class="text-2xl font-bold mb-4 text-white">Host & Place Exhibits</h3>
+                        <p class="text-gray-400 leading-relaxed text-sm">As a Creator, you can claim exhibition slots in any hall and dynamically place 3D objects anywhere in the virtual space. Items automatically sync to the 2D gallery for instant discovery!</p>
                     </div>
                 </div>
             </div>

@@ -8,9 +8,10 @@ Exora is a high-end, immersive Virtual Exhibition Platform built with **Laravel*
 - **Hoster:** Orchestrate exhibitions, manage virtual stalls (booths), and lead live auditorium sessions from a centralized **Command Center**.
 - **Participater:** Explore immersive 3D galleries, interact with brands, and attend live keynotes with real-time engagement.
 
-### 🏛️ Immersive Atriums & Expanses
-- **Atrium A & Expanse B:** High-fidelity 3D environments (powered by Sketchfab) allowing for deep exploration of digital sculptures and high-resolution creative works.
-- **Dynamic Content:** API-driven asset loading ensures a fresh experience every time a Participater enters.
+### 🏛️ 7 Immersive Exhibition Halls
+- **Diverse Environments:** Includes Atrium A, Tech-Expanse B, Robotics Hub, Diamond Vault, Global Book Fair, Masterpiece Art Gallery, and Automobile Showcase.
+- **Immersive 3D Engine:** High-fidelity 3D environments powered by **A-Frame and WebGL**, allowing for deep exploration and real-time object placement.
+- **Live Sync:** 3D Placed objects automatically sync with the 2D Gallery UI using MongoDB real-time querying.
 
 ### 🎪 Marketplace & Trade Booths
 - Professional **Stall Orchestration** for Hosters to showcase brands.
@@ -26,8 +27,8 @@ Exora is a high-end, immersive Virtual Exhibition Platform built with **Laravel*
 ## 🛠️ Technology Stack
 - **Backend:** Laravel 12.x
 - **Database:** MongoDB (NoSQL)
-- **Frontend:** Blade, Tailwind CSS, Vite
-- **3D Rendering:** Sketchfab Integration
+- **Frontend:** Blade, Tailwind CSS (Glassmorphism), Vite
+- **3D Rendering:** A-Frame & WebGL
 - **Media:** Unsplash API for high-resolution exhibition assets
 
 ## 📦 Installation & Setup

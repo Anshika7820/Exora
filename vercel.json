@@ -18,7 +18,8 @@
     "outputDirectory": "public",
     "env": {
         "APP_ENV": "production",
-        "APP_DEBUG": "false",
+        "APP_DEBUG": "true",
+        "APP_KEY": "base64:VhM5y0ehM3pmq++ahGWVSU5v+/v/Zv8Ydw38N/K9KlA=",
         "APP_URL": "https://exora.vercel.app",
         "APP_CONFIG_CACHE": "/tmp/config.php",
         "APP_EVENTS_CACHE": "/tmp/events.php",

@@ -20,6 +20,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile/info', function() { return view('profile.show'); })->name('profile.show');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::post('/profile/upgrade', [ProfileController::class, 'upgradeRole'])->name('profile.upgrade');
     
     // Core Platform Routes
     Route::get('/hall/{id?}', [ExhibitionController::class, 'hall'])->name('hall');

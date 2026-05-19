@@ -57,4 +57,27 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+
+    /**
+     * Upgrade the user's role to creator.
+     */
+    public function upgradeRole(Request $request): RedirectResponse
+    {
+        $request->validateWithBag('upgrade', [
+            'creator_code' => ['required', 'string'],
+        ]);
+
+        // The secret code to become a host
+        $secretCode = 'EXORA-HOST-2026';
+
+        if ($request->creator_code === $secretCode) {
+            $user = $request->user();
+            $user->role = 'creator';
+            $user->save();
+
+            return Redirect::route('profile.edit')->with('status', 'role-upgraded');
+        }
+
+        return back()->withErrors(['creator_code' => 'Invalid access code provided.'])->withBag('upgrade');
+    }
 }
